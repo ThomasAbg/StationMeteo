@@ -1,0 +1,15 @@
+# Fdb version 3
+["xdvipdfmx"] 0 "Chapter1.xdv" "Chapter1.pdf" "Chapter1" 0
+  "Chapter1.xdv" 0 -1 0 "xelatex"
+  (generated)
+  "Chapter1.pdf"
+["xelatex"] 1575472492 "Chapter1.tex" "Chapter1.xdv" "Chapter1" 1575472492
+  "/etc/texmf/web2c/texmf.cnf" 1574873388 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1562720991 35073 2a40cfca74fcd5e2568b569ccaadf3f1 ""
+  "/usr/share/texmf/web2c/texmf.cnf" 1562720991 35073 2a40cfca74fcd5e2568b569ccaadf3f1 ""
+  "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1574873467 3754126 51765d2a73451c26fecdb85c705fa206 ""
+  "Chapter1.aux" 1575472176 6081 bf8765d191de4edd3b4ef55191a01c61 ""
+  "Chapter1.tex" 1575472492 4855 726cf1297157a1c1de123786f10c436d ""
+  (generated)
+  "Chapter1.log"
+  "Chapter1.xdv"

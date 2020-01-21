@@ -1,7 +1,7 @@
 QT += widgets serialport
 requires(qtConfig(combobox))
 
-TARGET = terminal
+TARGET = InterfaceStation
 TEMPLATE = app
 
 SOURCES += \
@@ -20,7 +20,7 @@ FORMS += \
     settingsdialog.ui
 
 RESOURCES += \
-    terminal.qrc
+    InterfaceStation.qrc
 
 target.path = $$[QT_INSTALL_EXAMPLES]/serialport/terminal
 INSTALLS += target

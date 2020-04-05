@@ -1,0 +1,20 @@
+\BOOKMARK [0][-]{chapter*.1}{Contents}{}% 1
+\BOOKMARK [-1][]{part.2}{I\040Partie\040de\040groupe}{}% 2
+\BOOKMARK [0][-]{chapter.3}{Introduction}{part.2}% 3
+\BOOKMARK [-1][]{part.4}{II\040Thomas\040ABGRALL}{}% 4
+\BOOKMARK [0][-]{chapter.5}{Introduction}{part.4}% 5
+\BOOKMARK [1][-]{section.7}{Prise\040en\040main}{chapter.5}% 6
+\BOOKMARK [0][-]{chapter.20}{Reception}{part.4}% 7
+\BOOKMARK [1][-]{section.21}{Lecture données reçu}{chapter.20}% 8
+\BOOKMARK [0][-]{chapter.25}{Multi\040taches}{part.4}% 9
+\BOOKMARK [0][-]{chapter.27}{Affichage}{part.4}% 10
+\BOOKMARK [-1][]{part.29}{III\040Eric\040Rebillon}{}% 11
+\BOOKMARK [0][-]{chapter.30}{\040Capteur\040d'Altitude}{part.29}% 12
+\BOOKMARK [1][-]{section.31}{\040Mise\040en\040place\040du\040Capteur\040}{chapter.30}% 13
+\BOOKMARK [2][-]{subsection.34}{Commande\040}{section.31}% 14
+\BOOKMARK [2][-]{subsection.41}{Trames d'envoyé et réception}{section.31}% 15
+\BOOKMARK [1][-]{section.42}{\040Test\040du\040Capteur\040}{chapter.30}% 16
+\BOOKMARK [0][-]{chapter.43}{\040Envoie\040de\040la\040valeur}{part.29}% 17
+\BOOKMARK [1][-]{section.44}{\040Mise\040en\040place\040de\040la\040communication}{chapter.43}% 18
+\BOOKMARK [1][-]{section.57}{\040Test\040de\040la\040communication}{chapter.43}% 19
+\BOOKMARK [0][-]{chapter.60}{Conclusion}{part.29}% 20

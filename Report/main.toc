@@ -1,6 +1,0 @@
-\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
-\babel@toc {nil}{}
-\contentsline {chapter}{Contents}{1}{chapter*.1}% 
-\contentsline {part}{I\hspace {1em}Partie de groupe}{2}{part.2}% 
-\contentsline {part}{II\hspace {1em}Thomas ABGRALL}{3}{part.3}% 
-\contentsline {part}{III\hspace {1em}Eric Rebillon}{4}{part.4}% 

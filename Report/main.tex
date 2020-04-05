@@ -13,6 +13,7 @@ toctotoc,
 headsepline,
 ]{MastersDoctoralThesis}
 
+\usepackage{listings}
 \usepackage{mathpazo}
 \usepackage{fontspec}
 \setmainfont[Ligatures=TeX, Mapping=tex-text]{TeX Gyre Pagella}
@@ -95,12 +96,12 @@ showtabs,
 {\huge \bfseries \ttitle\par}\vspace{0.4cm}
 \HRule \\[1.5cm]
 
-\large{\emph{Auteurs :}\\
+\large{\emph{Auteurs :} \\
 \authorname}
 
 \vspace{4cm}
 \degreename\\[1cm]
-{\vspace{0.4cm}\scshape\LARGE \univname}\\\deptname\\\groupname\\[1cm]
+{\vspace{0.4cm}\scshape\LARGE \univname} \deptname \groupname
 
 \vfill
 
@@ -121,11 +122,12 @@ showtabs,
 
 
 \part{Partie de groupe}
-\include{Chapters/Chapter1}
+\include{Chapters/groupe}
 \part{Thomas ABGRALL}
 \include{Chapters/Abgrall/Chapter1}
 \part{Eric Rebillon}
 \include{Chapters/Rebillon/Chapter1}
+\include{Chapters/conclusion}
 
 
 \appendix

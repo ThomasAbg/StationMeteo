@@ -1,0 +1,283 @@
+\chapter{ Capteur d'Altitude}
+
+\noindent Pour le projet, ayant d\'{e}j\`{a} fait le capteur d\'{e}finie dans les consignes du projet, je met en place le capteur MS5607-02BA03.
+
+
+\section{ Mise en place du Capteur }
+
+\noindent Le Capteur est disponible dans deux protocoles~: 
+
+\begin{enumerate}
+\item  SPI
+
+\item  I2C
+\end{enumerate}
+
+\noindent Par d\'{e}faut le capteur est en I2C, on peut passer le Capteur en SPI en dessoudant quelques r\'{e}sistances. 
+
+\noindent D'apr\`{e}s les donn\'{e}es constructrices l'adresse I2C permettant la communication avec le module est 0xEC en lecture ou 0XED en \'{e}criture.
+
+\noindent 
+
+\begin{tabular}{|p{2.3in}|p{1.9in}|} \hline 
+Adresse I2C & R\'{e}ponse du Capteur \\ \hline 
+0xEE & Renvoie des valeurs (trouv\'{e}es pendant les test) \\ \hline 
+0x76 in Read\newline 0x77 in Write & Renvoie Aucune Valeur (D\'{e}finie dans la datasheet) \\ \hline 
+\end{tabular}
+
+
+
+\noindent 
+\subsection{Commande }
+
+\noindent 
+
+\noindent Toutes les commandes suivantes sont disponibles dans la datasheet MS5607-02BA03
+
+\begin{tabular}{|p{2.1in}|p{1.8in}|} \hline 
+Nom de la commande & Valeur Hexad\'{e}cimale \\ \hline 
+Reset & 0x1E \\ \hline 
+Convert D1 256 & 0x40 \\ \hline 
+Convert D1 512 & 0x42 \\ \hline 
+Convert D1 1024 & 0x44 \\ \hline 
+Convert D1 2048 & 0x46 \\ \hline 
+Convert D1 4096 & 0x48 \\ \hline 
+Convert D2 256 & 0x50 \\ \hline 
+Convert D2 512 & 0x52 \\ \hline 
+Convert D2 1024 & 0x54 \\ \hline 
+Convert D2 2048 & 0x56 \\ \hline 
+Convert D2 4096 & 0x58 \\ \hline 
+ADC Read & 0x00 \\ \hline 
+Prom Read & 0xA0 to 0xAE \\ \hline 
+\end{tabular}
+
+\textit{Tableau 1}
+
+\noindent \eject 
+
+\noindent Le capteur fonctionne avec ces commandes.
+
+\begin{enumerate}
+\item  D1 : repr\'{e}sente la donn\'{e}e pression
+
+\item  D2 : repr\'{e}sente la donn\'{e}e temp\'{e}rature
+\end{enumerate}
+
+\noindent Tous deux peuvent avoir une r\'{e}solution de :256
+
+\begin{enumerate}
+\item  512
+
+\item  1024
+
+\item  2048
+
+\item  4096
+\end{enumerate}
+
+\noindent La r\'{e}solution change le temps de calcul du capteur, selon l'utilisation nous pouvons avoir plus ou moins besoin de r\'{e}solution grande. Dans notre cas pas utile, le capteur sera juste une indication pour l'utilisateur.
+
+\noindent Remise \`{a} z\'{e}ro : 0x1E
+
+\noindent ADCRead permet de dire au capteur que nous voulons la donn\'{e}e pression-temp\'{e}rature.
+
+\noindent PromRead permet de r\'{e}cup\'{e}rer des coefficients pour affiner et calibrer les donn\'{e}es re\c{c}ues du capteur. Il faut juste appliquer les calculs indiqu\'{e}s sur les donn\'{e}es re\c{c}ues.\underbar{}
+
+\noindent 
+\subsection{Trames d'envoy\'{e} et r\'{e}ception}
+
+\noindent 
+
+\noindent Dans chaque trame I2C, il faudra envoyer l'adresse I2C du module suivit de la commande.
+
+\noindent Sachant que la commande est pr\'{e}c\'{e}d\'{e}e et suivit d'une Acknowledge.
+
+\noindent L'acknowledge est g\'{e}n\'{e}rer par le module, donc si pendant le debug il n'a pas d'acknowledge cela signifie que :
+
+\noindent  la trame n'est pas envoy\'{e}e correctement
+
+\noindent  L'adresse I2C n'est pas correcte
+
+\noindent  Capteur est d\'{e}fectueux
+
+\noindent Pour visualiser la trame :\includegraphics*[width=5.44in, height=1.14in, keepaspectratio=false]{image1}
+
+\noindent \textit{Figure 10 : Image Datasheet Trame}
+
+\noindent 
+
+\noindent Slave~: Capteur
+
+\noindent Master~: Carte STM32
+
+\noindent Chaque commande envoy\'{e}e au capteur devra \^{e}tre r\'{e}alis\'{e}e de cette fa\c{c}on.
+
+\noindent 
+
+\noindent \includegraphics*[width=4.14in, height=5.46in, keepaspectratio=false]{imagealgo}Algorithme global
+
+\noindent Pour r\'{e}cup\'{e}rer une valeur selon les informations auparavant, il faut faire de cette fa\c{c}on :
+
+\noindent au d\'{e}marrage il faut remettre \`{a} z\'{e}ro, le capteur puis demander les 9 coefficients.
+
+\noindent On envoie les r\'{e}solutions voulues au capteur. On stocke les 2 valeurs re\c{c}ues puis conversion.
+
+\noindent La conversion est en cours de r\'{e}alisation.
+
+\noindent 
+
+\noindent 
+
+\noindent 
+
+\noindent 
+
+\noindent 
+
+\noindent 
+
+\noindent 
+
+\noindent 
+
+\noindent 
+
+
+\section{ Test du Capteur }
+
+\noindent 
+
+\noindent 
+
+\noindent Lors de la mise en place du capteur, le module r\'{e}ponds \`{a} une adresse I2C non d\'{e}finie dans la datasheet , les adresses d\'{e}finies dans la datasheet ne fonctionne pas.
+
+\noindent Le module envoie des valeurs incoh\'{e}rentes puis apr\`{e}s des semaines de test le module ne r\'{e}ponds plus. Le module est tr\`{e}s difficile \`{a} mettre en place.
+
+\noindent 
+
+\noindent \eject 
+
+
+\chapter{ Envoie de la valeur}
+
+
+\section{ Mise en place de la communication}
+
+\noindent Apr\`{e}s avoir fait cela on met en place le protocole UART, pour l'envoie, les param\`{e}tres~:
+
+\begin{enumerate}
+\item  Asynchrone
+
+\item  115200 baud , pour la vitesse de transmission
+
+\item  8bits de donn\'{e}es 
+
+\item  Pas de bits de parit\'{e}
+
+\item  1 bits de stop
+
+\item  Reception et transmission
+\end{enumerate}
+
+\noindent Seulement activation de l'UART2, UART2 est celui qui est reli\'{e}e \`{a} l'USB de la Shield de la STM32.
+
+\noindent Une fois avoir mis en place l'UART avec le CUBMX
+
+\noindent \includegraphics*[width=5.75in, height=5.48in, keepaspectratio=false]{image3}
+
+\noindent Une fois les param\`{e}tres mise en place on g\'{e}n\`{e}re le code et toute les initialisations utile pour notre cas.
+
+\noindent Maintenant nous pouvons utiliser les HALs 
+
+\noindent 
+
+\noindent 
+
+\noindent Pour la fonction a utilis\'{e}~:
+
+\begin{enumerate}
+\item  HAL\_UART\_Transmit : pour transmettre une valeur en UART
+\end{enumerate}
+
+\noindent Dans la fonction, 4 param\`{e}tres~:
+
+\begin{enumerate}
+\item  L'uart sur lequels envoyer les donn\'{e}es
+
+\item  Le tableau contenant les donn\'{e}es a envoy\'{e}es
+
+\item  Le nombre d'octets ou de caract\`{e}re a envoy\'{e}s
+
+\item  Le Timeout
+\end{enumerate}
+
+\noindent 
+
+\noindent Pour envoyer les valeurs du capteur il faut d'abord convertir le type re\c{c}ues par le capteur~: 
+
+\begin{enumerate}
+\item  Non sign\'{e}s, 32 bits 
+\end{enumerate}
+
+\noindent Pour convertir le format de donn\'{e}es il faut r\'{e}aliser un cast.
+
+\noindent \textbf{void} \textbf{Send\_Data}(uint32\_t data)
+
+\noindent $\mathrm{\{}$
+
+ \textbf{char} tab[4];
+
+ \textbf{int} test = (\textbf{int})data;
+
+ \textbf{itoa}(test, tab,10);
+
+ HAL\_UART\_Transmit(\&huart2, tab, 4, 2000);
+
+ HAL\_UART\_Transmit(\&huart2, "{\textbackslash}r{\textbackslash}n", 3, 2000);
+
+\noindent $\mathrm{\}}$
+
+\noindent Une fois la valeur convertit au bon format de donn\'{e}es, il faut convertit le type Int to Char, autrement dit types entiers vers un type caract\`{e}res.
+
+\noindent Pour cela on utilise la fonction de la librairie $\mathrm{<}$stdio$\mathrm{>}$, pour utiliser la fonction itoa, avec un le premi\`{e}re param\`{e}tre c'est la valeur enti\`{e}re \`{a} convertir en caract\`{e}res, le deuxi\`{e}me param\`{e}tre est le tableau de caract\`{e}res et le dernier param\`{e}tres et le format de donn\'{e}e que l'ont veut avoir autrement dit d\'{e}cimale, binaire, hexad\'{e}cimale, etc {\dots}
+
+\noindent On envoie avec la fonction HAL pr\'{e}senter ci-dessus en mettant en param\`{e}tre le tableau contenant les caract\`{e}res convertit du type entier.
+
+\noindent 
+
+
+\section{ Test de la communication}
+
+\noindent 
+
+\noindent Pour tester l'envoie, comme le capteur ne fonctionne pas correctement est tr\`{e}s difficile \`{a} mettre en place je ferait varier une valeur du m\^{e}me type que le capteur. De 0 \`{a} 100 (comme la temperature). Et on envoie les donn\'{e}es.
+
+\noindent \textbf{void} \textbf{TestSend\_Data}()
+
+\noindent $\mathrm{\{}$
+
+ uint32\_t RandomValue = 0;
+
+\noindent 
+
+ \textbf{for} (RandomValue = 0; RandomValue $\mathrm{<}$ 99; ++RandomValue) $\mathrm{\{}$
+
+\noindent 
+
+  Send\_Data(RandomValue);
+
+ $\mathrm{\}}$
+
+\noindent $\mathrm{\}}$
+
+\noindent 
+
+ On teste ce qui est re\c{c}ue par le p\'{e}riph\'{e}rique.
+
+\noindent Pour le teste, on utilise putty avec les param\`{e}tres suivants~:
+
+\begin{enumerate}
+\item  Le COM de la shield de la STM32
+
+\item  Vitesse~: 115200 Baud
+\end{enumerate}
